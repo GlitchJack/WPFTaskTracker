@@ -1,0 +1,69 @@
+﻿<Window x:Class="WPFWorkTracker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFWorkTracker"
+        mc:Ignorable="d"
+        Title="WorkTracker" Height="300" Width="400">
+    
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!--Column 0: Task List-->
+        <Grid Grid.Column="0" Margin="2.5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Margin="2.5" FontSize="15" HorizontalAlignment="Center">Task List</Label>
+                <Button Grid.Column="1" Margin="2.5" x:Name="btnRefreshTasks" Click="ButtonRefreshTasks_Click" Content="Refresh"></Button>
+            </Grid>
+
+            <ListBox Grid.Row="1" x:Name="tasks"/>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Margin="2.5" x:Name="btnDel" Click="ButtonDelTask_Click" Content="Delete Task" IsEnabled="False"/>
+                <Button Grid.Column="1" Margin="2.5" x:Name="btnNew" Click="ButtonNewTask_Click" Content="New Task"/>
+            </Grid>
+        </Grid>
+
+        <!--Column 1: Task Preview-->
+        <Grid Grid.Column="1" Margin="2.5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBox Grid.Row="0" FontSize="15" x:Name="taskTitle" IsEnabled="False"/>
+            <TextBox Grid.Row="1" Margin="0,2.5,0,0" x:Name="taskDescription" IsEnabled="False"/>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Margin="2.5" x:Name="btnSave" Click="ButtonSaveTask_Click" Content="Save Changes" IsEnabled="False"/>
+                <Button Grid.Column="1" Margin="2.5" x:Name="btnComp" Click="ButtonCompleteTask_Click" Content="Complete" IsEnabled="False"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
