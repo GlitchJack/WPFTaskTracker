@@ -18,9 +18,45 @@ namespace WPFWorkTracker
     /// </summary>
     public partial class NewTask : Page
     {
+        List<TaskModel> taskList = new List<TaskModel>();
+        NavigationService ns;
+
         public NewTask()
         {
             InitializeComponent();
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            //Instantiate TaskList page
+            TaskList page = new TaskList();
+            ns = NavigationService.GetNavigationService(this);
+            ns.Navigate(page);
+        }
+
+        private void btnFinish_Click(object sender, RoutedEventArgs e)
+        {
+            //Load tasks to be able to check against
+            taskList = SQLiteDataAccess.LoadTasks();
+
+            //Create task object
+            TaskModel task = null;
+            if(!string.IsNullOrWhiteSpace(taskTitle.Text) && 
+               !string.IsNullOrWhiteSpace(taskDesc.Text))
+            {
+                task = new TaskModel(taskTitle.Text, taskDesc.Text);
+            }
+
+            //Save info to db
+            if (task != null && !taskList.Contains(task))
+            {
+                SQLiteDataAccess.SaveTask(task);
+            }
+
+            //Instantiate TaskList page
+            TaskList page = new TaskList();
+            ns = NavigationService.GetNavigationService(this);
+            ns.Navigate(page);
         }
     }
 }
