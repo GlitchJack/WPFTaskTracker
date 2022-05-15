@@ -10,8 +10,8 @@
 
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="*" MaxWidth="300"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <!--Column 0: Task List-->
@@ -44,7 +44,8 @@
 
             <ListBox Grid.Row="1"
                      Margin="2.5,0"
-                     x:Name="tasks"/>
+                     x:Name="tasks"
+                     SelectionChanged="TaskPreview"/>
 
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
@@ -124,6 +125,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
                 <Button Grid.Column="0"
@@ -145,6 +147,24 @@
                 </Button>
 
                 <Button Grid.Column="1"
+                        Margin="2.5"
+                        x:Name="btnReset" 
+                        Click="ButtonResetTask_Click"
+                        Content="Reset">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="IsEnabled" Value="True"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=tasks, Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+                <Button Grid.Column="2"
                         Margin="2.5" 
                         x:Name="btnComp" 
                         Click="ButtonCompleteTask_Click" 

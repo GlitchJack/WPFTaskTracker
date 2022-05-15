@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFWorkTracker"
         mc:Ignorable="d"
-        Title="WorkTracker" Height="300" Width="400"
+        Title="WorkTracker" Height="600" Width="800"
         FontFamily="Arial"
         Source="TaskList.xaml"
         ShowsNavigationUI="False">

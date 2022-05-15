@@ -98,5 +98,24 @@ namespace WPFWorkTracker
 
             RefreshTasks();
         }
+
+        private void TaskPreview(object sender, SelectionChangedEventArgs e)
+        {
+            //ListBoxItem lbi = (sender as ListBox).SelectedItem as ListBoxItem;
+            if(tasks.SelectedIndex > -1)
+            {
+                taskTitle.Text = taskList[tasks.SelectedIndex].GetTitle();
+                taskDesc.Text = taskList[tasks.SelectedIndex].GetDescription();
+            }
+        }
+
+        private void ButtonResetTask_Click(object sender, RoutedEventArgs e)
+        {
+            if(tasks.SelectedIndex > -1)
+            {
+                taskTitle.Text = taskList[tasks.SelectedIndex].GetTitle();
+                taskDesc.Text = taskList[tasks.SelectedIndex].GetDescription();
+            }
+        }
     }
 }
