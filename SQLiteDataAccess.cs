@@ -36,6 +36,23 @@ namespace WPFWorkTracker
             }
         }
 
+        public static void UpdateTask(TaskModel task)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection("Data Source=./TaskDB.db"))
+            {
+                conn.Open();
+
+                SQLiteCommand command = new SQLiteCommand("UPDATE Task SET Title=@Title, Completed=@Completed, Description=@Description WHERE Id=@Id", conn);
+
+                command.Parameters.AddWithValue("@Id", task.GetId());
+                command.Parameters.AddWithValue("@Title", task.GetTitle());
+                command.Parameters.AddWithValue("@Completed", task.IsCompleted());
+                command.Parameters.AddWithValue("@Description", task.GetDescription());
+
+                command.ExecuteNonQuery();
+            }
+        }
+
         public static void DelTask(TaskModel task)
         {
             using (SQLiteConnection conn = new SQLiteConnection("Data Source=./TaskDB.db"))
@@ -45,6 +62,20 @@ namespace WPFWorkTracker
                 SQLiteCommand command = new SQLiteCommand("DELETE FROM Task WHERE Title=@Title", conn);
 
                 command.Parameters.AddWithValue("@Title", task.GetTitle());
+
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public static void DelTask(string taskTitle)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection("Data Source=./TaskDB.db"))
+            {
+                conn.Open();
+
+                SQLiteCommand command = new SQLiteCommand("DELETE FROM Task WHERE Title=@Title", conn);
+
+                command.Parameters.AddWithValue("@Title", taskTitle);
 
                 command.ExecuteNonQuery();
             }

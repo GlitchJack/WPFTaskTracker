@@ -18,8 +18,8 @@ namespace WPFWorkTracker
     /// </summary>
     public partial class TaskList : Page
     {
-        List<TaskModel> taskList = new List<TaskModel>();
-        NavigationService ns;
+        private List<TaskModel> taskList = new List<TaskModel>();
+        private NavigationService ns;
 
         public TaskList()
         {
@@ -29,32 +29,38 @@ namespace WPFWorkTracker
 
         private void RefreshTasks()
         {
+            //listBoxItemColor = Brushes.Black;
             tasks.Items.Clear();
             taskList = SQLiteDataAccess.LoadTasks();
-            foreach (var task in taskList)
+            foreach (TaskModel task in taskList)
             {
-                tasks.Items.Add(task.GetTitle());
+                ListBoxItem lbi = new ListBoxItem
+                {
+                    Content = task.GetTitle()
+                };
+
+                if (task.IsCompleted())
+                {
+                    lbi.Foreground = Brushes.Green;
+                }
+
+                tasks.Items.Add(lbi);
             }
         }
 
-        //private void ButtonAddTask_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if(!string.IsNullOrWhiteSpace(taskTitle.Text) && !tasks.Items.Contains(taskTitle.Text))
-        //    {
-        //        SQLiteDataAccess.SaveTask(new TaskModel(taskTitle.Text));
-        //        RefreshTasks();
-        //        taskTitle.Clear();
-        //    }
-        //}
-
         private void ButtonRefreshTasks_Click(object sender, RoutedEventArgs e)
         {
-
+            RefreshTasks();
         }
 
         private void ButtonDelTask_Click(object sender, RoutedEventArgs e)
         {
-
+            //If item is selected then uses that item's index in taskList to delete object from database
+            if(tasks.SelectedIndex > -1)
+            {
+                SQLiteDataAccess.DelTask(taskList[tasks.SelectedIndex]);
+                RefreshTasks();
+            }
         }
 
         private void ButtonNewTask_Click(object sender, RoutedEventArgs e)
@@ -68,12 +74,29 @@ namespace WPFWorkTracker
 
         private void ButtonSaveTask_Click(object sender, RoutedEventArgs e)
         {
+            //Make changes to TaskModel object
+            taskList[tasks.SelectedIndex].SetTitle(taskTitle.Text);
+            taskList[tasks.SelectedIndex].SetDescription(taskDesc.Text);
 
+            //Clear textboxes
+            taskTitle.Clear();
+            taskDesc.Clear();
+
+            //Update object in db
+            SQLiteDataAccess.UpdateTask(taskList[tasks.SelectedIndex]);
+
+            RefreshTasks();
         }
 
         private void ButtonCompleteTask_Click(object sender, RoutedEventArgs e)
         {
+            //Make changes to TaskModel object
+            taskList[tasks.SelectedIndex].SetCompleted(true);
 
+            //Update object in db
+            SQLiteDataAccess.UpdateTask(taskList[tasks.SelectedIndex]);
+
+            RefreshTasks();
         }
     }
 }

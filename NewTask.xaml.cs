@@ -26,7 +26,7 @@ namespace WPFWorkTracker
             InitializeComponent();
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             //Instantiate TaskList page
             TaskList page = new TaskList();
@@ -34,17 +34,22 @@ namespace WPFWorkTracker
             ns.Navigate(page);
         }
 
-        private void btnFinish_Click(object sender, RoutedEventArgs e)
+        private void BtnFinish_Click(object sender, RoutedEventArgs e)
         {
             //Load tasks to be able to check against
             taskList = SQLiteDataAccess.LoadTasks();
 
             //Create task object
             TaskModel task = null;
-            if(!string.IsNullOrWhiteSpace(taskTitle.Text) && 
-               !string.IsNullOrWhiteSpace(taskDesc.Text))
+            if(!string.IsNullOrWhiteSpace(taskTitle.Text))
             {
-                task = new TaskModel(taskTitle.Text, taskDesc.Text);
+                task = new TaskModel(taskTitle.Text);
+
+                //Only add description to db if filled out
+                if(!string.IsNullOrWhiteSpace(taskDesc.Text))
+                {
+                    task.SetDescription(taskDesc.Text);
+                }
             }
 
             //Save info to db

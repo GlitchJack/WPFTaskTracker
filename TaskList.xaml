@@ -28,11 +28,23 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0" Margin="2.5" FontSize="18" HorizontalAlignment="Stretch" Background="White" >Task List</Label>
-                <Button Grid.Column="1" Margin="2.5" x:Name="btnRefreshTasks" Click="ButtonRefreshTasks_Click" Content="Refresh"/>
+                <Label Grid.Column="0" 
+                       Margin="2.5" 
+                       FontSize="18" 
+                       HorizontalAlignment="Stretch" 
+                       Background="White" 
+                       Content="Task List"/>
+
+                <Button Grid.Column="1" 
+                        Margin="2.5"
+                        x:Name="btnRefreshTasks" 
+                        Click="ButtonRefreshTasks_Click" 
+                        Content="Refresh"/>
             </Grid>
 
-            <ListBox Grid.Row="1" x:Name="tasks"/>
+            <ListBox Grid.Row="1"
+                     Margin="2.5,0"
+                     x:Name="tasks"/>
 
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
@@ -40,8 +52,29 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Margin="2.5" x:Name="btnDel" Click="ButtonDelTask_Click" Content="Delete Task" IsEnabled="False"/>
-                <Button Grid.Column="1" Margin="2.5" x:Name="btnNew" Click="ButtonNewTask_Click" Content="New Task"/>
+                <Button Grid.Column="0" 
+                        Margin="2.5" 
+                        x:Name="btnDel" 
+                        Click="ButtonDelTask_Click" 
+                        Content="Delete Task" >
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="IsEnabled" Value="True"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=tasks, Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+                <Button Grid.Column="1" 
+                        Margin="2.5" 
+                        x:Name="btnNew" 
+                        Click="ButtonNewTask_Click" 
+                        Content="New Task"/>
             </Grid>
         </Grid>
 
@@ -53,8 +86,39 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBox Grid.Row="0" FontSize="15" x:Name="taskTitle" IsEnabled="False"/>
-            <TextBox Grid.Row="1" Margin="0,2.5,0,0" x:Name="taskDescription" IsEnabled="False"/>
+            <TextBox Grid.Row="0" 
+                     Margin="2.5,2.5,2.5,0"
+                     FontSize="15" 
+                     x:Name="taskTitle">
+                <!-- Text="{Binding ElementName=tasks, Path=SelectedItem.Content}" -->
+
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=tasks, Path=SelectedIndex}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+
+            <TextBox Grid.Row="1" 
+                     Margin="2.5,2.5,2.5,0" 
+                     x:Name="taskDesc">
+
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=tasks, Path=SelectedIndex}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
 
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
@@ -62,8 +126,41 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Margin="2.5" x:Name="btnSave" Click="ButtonSaveTask_Click" Content="Save Changes" IsEnabled="False"/>
-                <Button Grid.Column="1" Margin="2.5" x:Name="btnComp" Click="ButtonCompleteTask_Click" Content="Complete" IsEnabled="False"/>
+                <Button Grid.Column="0"
+                        Margin="2.5"
+                        x:Name="btnSave" 
+                        Click="ButtonSaveTask_Click"
+                        Content="Save Changes">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="IsEnabled" Value="True"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=tasks, Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+                <Button Grid.Column="1"
+                        Margin="2.5" 
+                        x:Name="btnComp" 
+                        Click="ButtonCompleteTask_Click" 
+                        Content="Complete">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="IsEnabled" Value="True"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=tasks, Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </Grid>
         </Grid>
     </Grid>

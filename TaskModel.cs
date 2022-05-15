@@ -6,6 +6,7 @@ namespace WPFWorkTracker
 {
     public class TaskModel
     {
+        private readonly int Id;
         private string Title;
         private bool Completed;
         private string Description;
@@ -29,6 +30,11 @@ namespace WPFWorkTracker
             Title = title;
             Completed = false;
             Description = desc;
+        }
+
+        public int GetId()
+        {
+            return Id;
         }
 
         public string GetTitle()

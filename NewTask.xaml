@@ -15,8 +15,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0" Margin="2.5" x:Name="taskTitle"></TextBox>
-        <TextBox Grid.Row="1" Margin="2.5" x:Name="taskDesc"></TextBox>
+        <TextBox Grid.Row="0" Margin="2.5" x:Name="taskTitle" MaxLength="80"></TextBox>
+        <TextBox Grid.Row="1" Margin="2.5" x:Name="taskDesc" MaxLength="2000"></TextBox>
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
@@ -24,8 +24,8 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Margin="2.5" x:Name="btnCancel" Click="btnCancel_Click" Content="Cancel"/>
-            <Button Grid.Column="1" Margin="2.5" x:Name="btnFinish" Click="btnFinish_Click" Content="Finish"/>
+            <Button Grid.Column="0" Margin="2.5" x:Name="btnCancel" Click="BtnCancel_Click" Content="Cancel"/>
+            <Button Grid.Column="1" Margin="2.5" x:Name="btnFinish" Click="BtnFinish_Click" Content="Finish"/>
         </Grid>
     </Grid>
 </Page>
