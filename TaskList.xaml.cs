@@ -59,6 +59,11 @@ namespace WPFWorkTracker
             if(tasks.SelectedIndex > -1)
             {
                 SQLiteDataAccess.DelTask(taskList[tasks.SelectedIndex]);
+
+                //Clear preview
+                taskTitle.Clear();
+                taskDesc.Clear();
+
                 RefreshTasks();
             }
         }

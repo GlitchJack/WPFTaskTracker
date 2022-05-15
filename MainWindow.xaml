@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="WorkTracker" Height="600" Width="800"
         FontFamily="Arial"
+        FontSize="15"
         Source="TaskList.xaml"
         ShowsNavigationUI="False">
 

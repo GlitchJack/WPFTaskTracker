@@ -107,7 +107,10 @@
 
             <TextBox Grid.Row="1" 
                      Margin="2.5,2.5,2.5,0" 
-                     x:Name="taskDesc">
+                     x:Name="taskDesc"
+                     AcceptsReturn="True"
+                     AcceptsTab="True"
+                     TextWrapping="WrapWithOverflow">
 
                 <TextBox.Style>
                     <Style TargetType="TextBox">
