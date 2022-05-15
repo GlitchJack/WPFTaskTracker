@@ -61,8 +61,7 @@ namespace WPFWorkTracker
                 SQLiteDataAccess.DelTask(taskList[tasks.SelectedIndex]);
 
                 //Clear preview
-                taskTitle.Clear();
-                taskDesc.Clear();
+                ClearTextBoxes();
 
                 RefreshTasks();
             }
@@ -84,8 +83,7 @@ namespace WPFWorkTracker
             taskList[tasks.SelectedIndex].SetDescription(taskDesc.Text);
 
             //Clear textboxes
-            taskTitle.Clear();
-            taskDesc.Clear();
+            ClearTextBoxes();
 
             //Update object in db
             SQLiteDataAccess.UpdateTask(taskList[tasks.SelectedIndex]);
@@ -96,10 +94,20 @@ namespace WPFWorkTracker
         private void ButtonCompleteTask_Click(object sender, RoutedEventArgs e)
         {
             //Make changes to TaskModel object
-            taskList[tasks.SelectedIndex].SetCompleted(true);
+            if (taskList[tasks.SelectedIndex].IsCompleted())
+            {
+                taskList[tasks.SelectedIndex].SetCompleted(false);
+            }
+            else
+            {
+                taskList[tasks.SelectedIndex].SetCompleted(true);
+            }
 
             //Update object in db
             SQLiteDataAccess.UpdateTask(taskList[tasks.SelectedIndex]);
+
+            //Clear Preview
+            ClearTextBoxes();
 
             RefreshTasks();
         }
@@ -111,6 +119,15 @@ namespace WPFWorkTracker
             {
                 taskTitle.Text = taskList[tasks.SelectedIndex].GetTitle();
                 taskDesc.Text = taskList[tasks.SelectedIndex].GetDescription();
+
+                if (taskList[tasks.SelectedIndex].IsCompleted())
+                {
+                    btnComp.Content = "UnComplete";
+                }
+                else
+                {
+                    btnComp.Content = "Complete";
+                }
             }
         }
 
@@ -121,6 +138,12 @@ namespace WPFWorkTracker
                 taskTitle.Text = taskList[tasks.SelectedIndex].GetTitle();
                 taskDesc.Text = taskList[tasks.SelectedIndex].GetDescription();
             }
+        }
+
+        private void ClearTextBoxes()
+        {
+            taskTitle.Clear();
+            taskDesc.Clear();
         }
     }
 }
