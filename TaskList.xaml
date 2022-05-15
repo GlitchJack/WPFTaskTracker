@@ -110,7 +110,8 @@
                      x:Name="taskDesc"
                      AcceptsReturn="True"
                      AcceptsTab="True"
-                     TextWrapping="WrapWithOverflow">
+                     TextWrapping="WrapWithOverflow"
+                     VerticalScrollBarVisibility="Auto">
 
                 <TextBox.Style>
                     <Style TargetType="TextBox">
